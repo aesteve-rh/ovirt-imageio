@@ -217,6 +217,12 @@ Python client library for accessing imageio server on oVirt hosts.
 
 %changelog
 
+* Wed Jul 20 2022 Albert Esteve <aesteve@redhat.com> 2.4.5-2
+- Add unit constants #31
+- Rename docker/ to containers/ #9
+- Simplify ipv6 setup in tests #12
+- Separate ci job for centos-8 python 3.8 #90
+
 * Tue Jun 14 2022 Nir Soffer <nsoffer@redhat.com> 2.4.5-1
 - http: Revert the default timeout to 60 seconds #71
 
