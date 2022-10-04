@@ -19,7 +19,7 @@ METADATA = ovirt_imageio/_internal/version.py Makefile
 build:
 	python3 setup.py build_ext --build-lib .
 
-check: images
+check: images container
 	tox
 
 dist: $(GENERATED)
