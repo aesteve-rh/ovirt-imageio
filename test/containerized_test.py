@@ -69,7 +69,7 @@ def tmp_ticket(tmpdir):
 def _wait_for_server(port, timeout):
     start = time.monotonic()
     deadline = start + timeout
-    conn = http_client.HTTPConnection("::", port)
+    conn = http_client.HTTPConnection("localhost", port)
     while True:
         try:
             conn.connect()
@@ -102,12 +102,14 @@ def srv(tmp_ticket, tmp_image):
     srv_proc = subprocess.Popen(
         cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     # Wait for server to start.
-    if not _wait_for_server(random_port, timeout=10):
+    if not _wait_for_server(random_port, timeout=5):
         log.error("Dumping server logs:")
-        log.warning("%s", srv_proc.stdout.read().decode("utf-8"))
-        log.error("%s", srv_proc.stderr.read().decode("utf-8"))
+        #if srv_proc.stdout is not None:
+        #    log.warning("%s", srv_proc.stdout.read().decode("utf-8"))
+        #if srv_proc.stderr is not None:
+        #    log.error("%s", srv_proc.stderr.read().decode("utf-8"))
         pytest.fail("Server could not start")
-    yield Server("::", random_port)
+    yield Server("localhost", random_port)
     srv_proc.terminate()
 
 

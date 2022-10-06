@@ -27,8 +27,17 @@ jobs:
       options: --privileged
     steps:
     - uses: actions/checkout@v2
+    - name: Install podman
+      run: dnf install -y podman
+    - name: Test port publish
+      run: |
+        podman run -dt --name webserver -p 8080:80 quay.io/libpod/banner
+        curl localhost:8080
     - name: Run tests
-      run: ci/test.sh ${{matrix.env}}
+      run: |
+        make container
+        ci/test.sh ${{matrix.env}}
+
   rpm:
     runs-on: ubuntu-latest
     strategy:
